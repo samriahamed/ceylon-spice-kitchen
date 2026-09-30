@@ -1,0 +1,18 @@
+# Backend dependencies
+backend/node_modules/
+
+# Environment variables
+backend/.env
+
+# SQLite databases
+backend/database/*.sqlite
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Old frontend Git history backup
+ceylon spice kitchen/.git-frontend-backup/
