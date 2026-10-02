@@ -1,5 +1,3 @@
-// utils/validators.js
-// Small, dependency-free validation helpers shared by the controllers.
 
 function isValidEmail(email) {
   return typeof email === "string" && /^\S+@\S+\.\S+$/.test(email.trim());

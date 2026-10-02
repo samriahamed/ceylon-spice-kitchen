@@ -1,27 +1,12 @@
-// backend/database/seed.js
-//
-// Seeds the Ceylon Spice Kitchen SQLite database from csk_data.json.
-//
-// Safe to run multiple times:
-// - Foods are inserted/updated using their existing IDs.
-// - Add-ons are inserted/updated using their existing IDs.
-// - Existing records are NOT duplicated.
-//
 // Run with:
 //   npm run db:seed
-//
-// Source:
-//   backend/database/csk_data.json
-//
 
 const fs = require("fs");
 const path = require("path");
 const db = require("../db/database");
 
-// ---------------------------------------------------------
-// Load seed data
-// ---------------------------------------------------------
 
+// Load seed data
 const dataPath = path.join(__dirname, "csk_data.json");
 
 if (!fs.existsSync(dataPath)) {
@@ -30,10 +15,8 @@ if (!fs.existsSync(dataPath)) {
 
 const CSK_DATA = JSON.parse(fs.readFileSync(dataPath, "utf8"));
 
-// ---------------------------------------------------------
-// Seed Foods
-// ---------------------------------------------------------
 
+// Seed Foods
 function seedFoods() {
   const insert = db.prepare(`
     INSERT INTO foods
@@ -101,10 +84,8 @@ function seedFoods() {
   return count;
 }
 
-// ---------------------------------------------------------
-// Seed Add-ons
-// ---------------------------------------------------------
 
+// Seed Add-ons
 function seedAddons() {
   const insert = db.prepare(`
     INSERT INTO addons
@@ -142,10 +123,8 @@ function seedAddons() {
   return count;
 }
 
-// ---------------------------------------------------------
-// Run Seeding
-// ---------------------------------------------------------
 
+// Run Seeding
 console.log(" Ceylon Spice Kitchen Database Seeding");
 
 

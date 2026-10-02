@@ -1,14 +1,3 @@
-// utils/password.js
-//
-// Password hashing without the `bcryptjs` npm package (no internet access
-// was available to install it while building this project — see
-// MANUAL_SETUP_GUIDE.md). Instead we use Node's built-in `crypto.scrypt`,
-// which is a well-regarded, slow, salted hashing algorithm designed for
-// exactly this purpose (Node's own docs recommend it for password storage).
-//
-// Stored format: "scrypt:<salt-hex>:<hash-hex>"
-// This is never returned to the client and is never logged.
-
 const crypto = require("crypto");
 
 const KEY_LENGTH = 64;

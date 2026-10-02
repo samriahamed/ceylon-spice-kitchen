@@ -1,4 +1,3 @@
-// controllers/newsletterController.js
 const db = require("../db/database");
 const { isValidEmail } = require("../utils/validators");
 const { ApiError } = require("../middleware/errorMiddleware");

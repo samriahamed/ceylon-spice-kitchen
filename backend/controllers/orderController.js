@@ -1,5 +1,3 @@
-// controllers/orderController.js
-
 const db = require("../db/database");
 const {
   calculateTotals,
@@ -23,9 +21,7 @@ const PAYMENT_METHODS = [
   "Card Demo",
 ];
 
-// ---------------------------------------------------------
 // Convert database order + items into API response format
-// ---------------------------------------------------------
 
 function rowToOrderSummary(order, items) {
   return {
@@ -55,11 +51,8 @@ function rowToOrderSummary(order, items) {
   };
 }
 
-// ---------------------------------------------------------
 // POST /api/orders
 // Requires authentication
-// ---------------------------------------------------------
-
 async function createOrder(req, res) {
   const {
     orderType,
@@ -73,10 +66,8 @@ async function createOrder(req, res) {
     customerEmail,
   } = req.body || {};
 
-  // -------------------------------------------------------
+ 
   // Validate basic order information
-  // -------------------------------------------------------
-
   if (!ORDER_TYPES.includes(orderType)) {
     throw new ApiError(
       400,
@@ -125,10 +116,8 @@ async function createOrder(req, res) {
     );
   }
 
-  // -------------------------------------------------------
-  // Get authenticated user from SQLite
-  // -------------------------------------------------------
 
+  // Get authenticated user from SQLite
   const user = db
     .prepare("SELECT * FROM users WHERE id = ?")
     .get(req.user.id);
@@ -140,10 +129,8 @@ async function createOrder(req, res) {
     );
   }
 
-  // -------------------------------------------------------
-  // Validate and price every food item
-  // -------------------------------------------------------
 
+  // Validate and price every food item
   const priced = [];
 
   for (const item of items) {
@@ -170,10 +157,8 @@ async function createOrder(req, res) {
       );
     }
 
-    // -----------------------------------------------------
-    // Get food information and price from SQLite
-    // -----------------------------------------------------
 
+    // Get food information and price from SQLite
     const food = db
       .prepare(
         `
@@ -198,9 +183,8 @@ async function createOrder(req, res) {
       );
     }
 
-    // -----------------------------------------------------
+
     // Get add-ons and prices from SQLite
-    // -----------------------------------------------------
 
     const addonList = Array.isArray(addons)
       ? addons
@@ -239,13 +223,10 @@ async function createOrder(req, res) {
       pricedAddons.push(knownAddon);
     }
 
-    // -----------------------------------------------------
     // Calculate item price
-    //
     // IMPORTANT:
     // The client does NOT provide the price.
     // Food price and add-on price both come from SQLite.
-    // -----------------------------------------------------
 
     const addonTotal = pricedAddons.reduce(
       (sum, addon) => sum + addon.price,
@@ -269,9 +250,7 @@ async function createOrder(req, res) {
     });
   }
 
-  // -------------------------------------------------------
   // Calculate order subtotal
-  // -------------------------------------------------------
 
   const subtotal = priced.reduce(
     (sum, item) => sum + item.lineSubtotal,
@@ -281,10 +260,8 @@ async function createOrder(req, res) {
   const isDelivery =
     orderType === "Delivery";
 
-  // -------------------------------------------------------
-  // Minimum delivery order validation
-  // -------------------------------------------------------
 
+  // Minimum delivery order validation
   if (
     isDelivery &&
     subtotal < BUSINESS_RULES.MINIMUM_DELIVERY_ORDER
@@ -295,9 +272,8 @@ async function createOrder(req, res) {
     );
   }
 
-  // -------------------------------------------------------
+
   // Calculate final totals
-  // -------------------------------------------------------
 
   const totals = calculateTotals(
     subtotal,
@@ -307,17 +283,13 @@ async function createOrder(req, res) {
   const orderNumber =
     generateOrderNumber();
 
-  // -------------------------------------------------------
+
   // Start database transaction
-  // -------------------------------------------------------
 
   db.exec("BEGIN");
 
   try {
-    // -----------------------------------------------------
     // Insert order
-    // -----------------------------------------------------
-
     const orderInfo = db
       .prepare(
         `
@@ -364,10 +336,8 @@ async function createOrder(req, res) {
     const orderId =
       orderInfo.lastInsertRowid;
 
-    // -----------------------------------------------------
-    // Insert order items
-    // -----------------------------------------------------
 
+    // Insert order items
     const insertItem = db.prepare(
       `
       INSERT INTO order_items
@@ -398,16 +368,12 @@ async function createOrder(req, res) {
       );
     }
 
-    // -----------------------------------------------------
-    // Commit transaction
-    // -----------------------------------------------------
 
+    // Commit transaction
     db.exec("COMMIT");
 
-    // -----------------------------------------------------
-    // Read newly created order
-    // -----------------------------------------------------
 
+    // Read newly created order
     const order = db
       .prepare(
         "SELECT * FROM orders WHERE id = ?"
@@ -424,10 +390,8 @@ async function createOrder(req, res) {
       )
       .all(orderId);
 
-    // -----------------------------------------------------
-    // Return created order
-    // -----------------------------------------------------
 
+    // Return created order
     res.status(201).json({
       success: true,
       message: "Order placed successfully",
@@ -438,21 +402,17 @@ async function createOrder(req, res) {
     });
 
   } catch (err) {
-    // -----------------------------------------------------
-    // Roll back transaction on failure
-    // -----------------------------------------------------
 
+    // Roll back transaction on failure
     db.exec("ROLLBACK");
 
     throw err;
   }
 }
 
-// ---------------------------------------------------------
+
 // GET /api/orders/my
 // Requires authentication
-// ---------------------------------------------------------
-
 async function getMyOrders(req, res) {
   const orders = db
     .prepare(
@@ -489,11 +449,9 @@ async function getMyOrders(req, res) {
   });
 }
 
-// ---------------------------------------------------------
+
 // GET /api/orders/:id
 // Requires authentication
-// ---------------------------------------------------------
-
 async function getOrderById(req, res) {
   const order = db
     .prepare(
@@ -538,10 +496,8 @@ async function getOrderById(req, res) {
   });
 }
 
-// ---------------------------------------------------------
-// Export controllers
-// ---------------------------------------------------------
 
+// Export controllers
 module.exports = {
   createOrder,
   getMyOrders,

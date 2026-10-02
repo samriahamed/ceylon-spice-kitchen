@@ -1,5 +1,4 @@
-// server.js — Ceylon Spice Kitchen backend entry point
-require("./utils/loadEnv")(); // tiny .env loader (see that file for why dotenv isn't used)
+require("./utils/loadEnv")(); 
 
 const http = require("http");
 const path = require("path");

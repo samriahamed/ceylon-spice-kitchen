@@ -1,4 +1,3 @@
-// routes/contactRoutes.js
 const contactController = require("../controllers/contactController");
 
 module.exports = function (router) {

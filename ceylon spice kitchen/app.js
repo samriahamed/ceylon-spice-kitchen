@@ -1,9 +1,7 @@
 (() => {
   const D = window.CSK_DATA;
 
-  // ---------------------------------------------------------------------
   // Backend integration helpers
-  // ---------------------------------------------------------------------
   const API = window.CSK_API_BASE || "http://localhost:3000/api";
   const authToken = () => localStorage.getItem('restaurant_auth_token');
 

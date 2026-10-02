@@ -1,4 +1,3 @@
-// controllers/contactController.js
 const db = require("../db/database");
 const { isValidEmail, isValidPhone, isNonEmptyString } = require("../utils/validators");
 const { ApiError } = require("../middleware/errorMiddleware");

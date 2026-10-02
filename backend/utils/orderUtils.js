@@ -1,10 +1,3 @@
-// utils/orderUtils.js
-//
-// These constants are copied verbatim from the existing frontend's
-// data.js (window.CSK_DATA.DELIVERY_FEE etc.) so behaviour does not change
-// for the customer. The backend is now the ONLY place that uses them to
-// compute a final price — the frontend numbers become display-only.
-
 const BUSINESS_RULES = {
   DELIVERY_FEE: 350,
   FREE_DELIVERY_THRESHOLD: 5000,

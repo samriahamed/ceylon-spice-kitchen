@@ -1,4 +1,3 @@
-// controllers/authController.js
 const db = require("../db/database");
 const { hashPassword, verifyPassword } = require("../utils/password");
 const jwt = require("../utils/jwt");

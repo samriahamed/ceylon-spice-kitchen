@@ -1,20 +1,4 @@
-// utils/router.js
-//
-// A tiny Express-like router built directly on Node's core `http` module.
-//
-// WHY THIS EXISTS: this project was built in a sandboxed environment with no
-// internet access, so `npm install express` was not possible here (see
-// MANUAL_SETUP_GUIDE.md for the full explanation). This router intentionally
-// copies Express's everyday API surface — app.get/post/put/delete(path, fn),
-// req.params / req.query / req.body, res.status(code).json(obj) — so that:
-//   1) the rest of the codebase (routes/controllers/middleware) reads exactly
-//      like a normal Express project, and
-//   2) swapping to real Express later (if your course requires the literal
-//      package) is a small, mechanical change, not a rewrite.
-//
-// It supports: path params (:id), query strings, JSON body parsing,
-// middleware chaining (including router-level middleware via app.use),
-// and next(err) style error propagation to a final error handler.
+
 
 const { URL } = require("url");
 

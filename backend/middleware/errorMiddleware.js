@@ -1,5 +1,3 @@
-// middleware/errorMiddleware.js
-
 // A small typed error so controllers can `throw new ApiError(404, "Food not found")`
 // and the central handler below turns it into the right HTTP response.
 class ApiError extends Error {

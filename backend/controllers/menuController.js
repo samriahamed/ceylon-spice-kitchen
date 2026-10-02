@@ -1,4 +1,3 @@
-// controllers/menuController.js
 const db = require("../db/database");
 const { ApiError } = require("../middleware/errorMiddleware");
 

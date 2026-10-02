@@ -1,6 +1,4 @@
-// middleware/corsMiddleware.js
-//
-// Manual CORS handling (no `cors` npm package — see MANUAL_SETUP_GUIDE.md).
+// Manual CORS handling 
 // Reads the allowed origin from process.env.FRONTEND_URL.
 
 function corsMiddleware(frontendUrl) {

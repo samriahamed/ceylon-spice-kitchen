@@ -1,11 +1,3 @@
-// utils/loadEnv.js
-//
-// A ~15-line replacement for the `dotenv` npm package (no internet access
-// was available to install it while building this project — see
-// MANUAL_SETUP_GUIDE.md). Reads backend/.env and copies KEY=VALUE lines into
-// process.env, same as dotenv's default behaviour. Does not overwrite a
-// variable that's already set in the real environment (e.g. on a cloud host).
-
 const fs = require("fs");
 const path = require("path");
 

@@ -1,16 +1,3 @@
-// utils/jwt.js
-//
-// A small, standards-compliant HS256 JWT implementation using only Node's
-// built-in `crypto` module (no internet access was available to install the
-// `jsonwebtoken` npm package while building this project — see
-// MANUAL_SETUP_GUIDE.md). The tokens produced are REAL JWTs: three
-// base64url segments (header.payload.signature), HMAC-SHA256 signed. You can
-// paste one into jwt.io and it will decode normally.
-//
-// If your course requires the literal `jsonwebtoken` package, swap this file
-// for calls to `jwt.sign(...)` / `jwt.verify(...)` — the function signatures
-// below were deliberately kept close to that package's API.
-
 const crypto = require("crypto");
 
 function base64url(input) {
